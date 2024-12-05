@@ -1,0 +1,56 @@
+{% extends 'adminpanel/admindashboard.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<h2>User Profile: {{ user.user.username }}</h2>
+
+<div>
+    <h3>Profile Information</h3>
+    <img src="{{ user.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px;">
+    <p><strong>Description:</strong> {{ user.profile_description }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+    <p><strong>Status:</strong> {{ user.is_active|yesno:"Active,Inactive" }}</p>
+    
+    <h3>Blogs by {{ user.user.username }}</h3>
+    <ul>
+        {% for blog in blogs %}
+            <li>
+                <strong>{{ blog.title }}</strong>
+                <p>{{ blog.content|truncatewords:30 }}</p>
+                <p>Status: {{ blog.status }}</p>
+                <p>
+                    {% if blog.is_visible %}
+                        <a href="{% url 'adminpanel:toggle_blog_visibility' blog.id %}">Hide Blog</a>
+                    {% else %}
+                        <a href="{% url 'adminpanel:toggle_blog_visibility' blog.id %}">Show Blog</a>
+                    {% endif %}
+                </p>
+            </li>
+        {% empty %}
+            <li>No blogs found for this user.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Comments by {{ user.user.username }}</h3>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>Comment:</strong> {{ comment.comment }} 
+                <p>Status: {{ comment.status }}</p>
+                <p>
+                    {% if comment.is_visible %}
+                        <a href="{% url 'adminpanel:toggle_comment_visibility' comment.id %}">Hide Comment</a>
+                    {% else %}
+                        <a href="{% url 'adminpanel:toggle_comment_visibility' comment.id %}">Show Comment</a>
+                    {% endif %}
+                </p>
+            </li>
+        {% empty %}
+            <li>No comments found for this user.</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{% url 'adminpanel:user_list' %}">Back to User List</a>
+</div>
+{% endblock %}

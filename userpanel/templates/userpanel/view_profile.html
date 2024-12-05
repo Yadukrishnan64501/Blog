@@ -1,0 +1,23 @@
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+Blogzone | Profile View
+{% endblock %}
+
+{% block content %}
+<h1>Your Profile</h1>
+<div>
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    <p><strong>Location:</strong> {{ profile.location }}</p>
+    <img src= "{{ profile.profile_image.url }}" alt="Profile Image" style="width: 150px; height: 150px;"/>
+    <p><strong>Date of Birth:</strong> {{ profile.dob }}</p> <!-- Make sure to include dob in ProfileUser model -->
+</div>
+<h1>{{ profile.user.username }}'s Profile</h1>
+<a href="{% url 'userpanel:reset_password' %}"class = "btn btn-warning" >Reset Password</a>
+
+{% endblock %}
+
+
+
+

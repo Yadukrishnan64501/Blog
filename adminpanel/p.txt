@@ -1,0 +1,35 @@
+
+class Profile(models.Model):
+    profile_description=models.TextField()
+    phone=models.IntegerField(10)
+    profile_image=models.ImageField(upload_to='profile_images/')
+    id_proof=models.ImageField(upload_to='profile_images/')
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
+class blog(models.Model):
+    title=models.CharFieldField(max_length=100)
+    content=TextField(50)
+    blog_image=models.ImageField(upload_to='blog_images/')
+    author=models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at=models.DateTimeField(auto_now_add=true)
+    updated_at=models.DateTimeField(auto_now_add=true)
+    status=hide
+
+    def __str__(self):
+        return self.title
+
+
+class comment(models.Model):
+    comment=models.TextField()
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    blog=models.ForeignKey(Blog, on_delete=models.CASCADE)
+    created_at=models.DateTimeField(auto_now_add=true)
+    updated_at=models.DateTimeField(auto_now_add=true)
+    status=h
+
+    def __str__(self):
+        return self.comment

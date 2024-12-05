@@ -1,0 +1,34 @@
+{% extends 'adminpanel/admindashboard.html' %}  <!-- Adjust base template if necessary -->
+
+{% block content %}
+<h1>All Blog Posts</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Comment</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blog in blogs %}
+        <tr>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.description }}</td>
+            <td>{{ blog.comment }}</td>
+            <td>
+                <a href="{% url 'adminpanel:toggle_blog_visibility' blog.id %}">
+                    {% if blog.is_visible %} Hide {% else %} Show {% endif %}
+                </a>
+                <!-- Add more actions if needed -->
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No blog posts available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

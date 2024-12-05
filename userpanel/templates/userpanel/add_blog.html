@@ -1,0 +1,20 @@
+{% extends 'userpanel/user_base.html' %}
+
+
+{% block title %}
+Blogzone | ADD blog
+{% endblock %}
+{% block content %}
+<h1>add BLOG</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+  
+ <button type="submit">Save blog</button>
+</form>
+</div>
+
+</div>
+
+{% endblock %}
+

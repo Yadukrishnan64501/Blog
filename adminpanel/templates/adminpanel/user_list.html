@@ -1,0 +1,35 @@
+{% extends 'adminpanel/admindashboard.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<h2>User List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Profile Description</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user.username }}</td>
+            <td>{{ user.profile_description }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.is_active|yesno:"Active,Inactive" }}</td>
+            <td>
+                {% if user.is_active %}
+                <a href="{% url 'adminpanel:deactivate_user' user.id %}">Deactivate</a>
+                {% else %}
+                <a href="{% url 'adminpanel:activate_user' user.id %}">Activate</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

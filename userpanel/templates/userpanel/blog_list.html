@@ -1,0 +1,36 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+MY BLOGS
+{% endblock %}
+
+{% block content %}
+{% if blogs %}
+    {% for blog in blogs %}
+        <div class="col-sm-5 text-center" style="margin-left: 250px;">
+            <div class="card-body pb-0 px-0 px-md-4">
+                <img src="{{ blog.product_image.url }}" alt="{{ blog.title }}" width="800px">
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            {% for comment in blog.userpanel_comments.all %}
+                <p>{{ comment.text }} - {{ comment.user.username }}</p>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+
+            <h3>Add a Comment</h3>
+            <form method="post" action="{% url 'userpanel:add_comment' blog.id %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Submit Comment</button>
+            </form>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No blogs available.</p>
+{% endif %}
+{% endblock %}

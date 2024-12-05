@@ -1,0 +1,23 @@
+{% extends 'sitevisitor/site_base.html' %}
+{% block title %}
+Blogzone | LOG IN
+{% endblock %}
+{% block content %}
+<h1> USER LOG IN</h1>
+<div>
+<form method="post" class="m-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+  
+    <button type="submit">LOG IN</button>
+    
+</form>
+<!-- Forgot Password Form -->
+<form method="get" action="{% url 'sitevisitor:forgot_password' %}" class="m-3">
+    <button type="submit">Forgot Password</button>
+</form>
+</div>
+
+
+{% endblock %}
+

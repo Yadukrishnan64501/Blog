@@ -1,0 +1,11 @@
+{% extends 'userpanel/user_base.html' %}
+
+{% block content %}
+  <h2>Add Comment</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- This renders the form fields -->
+    <button type="submit">Add Comment</button>
+  </form>
+  <a href="{% url 'userpanel:blog_list' %}">Back to Blog</a>
+{% endblock %}
